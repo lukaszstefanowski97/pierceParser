@@ -11,4 +11,4 @@ Endpoints:
     /attributes/{code}
     /options
     /options/{code}
-    /options/byAttribute/{code}
+    /options/byAttribute/{attributeName}
