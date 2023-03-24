@@ -2,7 +2,6 @@ package com.example.pierceParser.controlers;
 
 import com.example.pierceParser.dto.OptionDTO;
 import com.example.pierceParser.entities.Option;
-import com.example.pierceParser.services.AttributesService;
 import com.example.pierceParser.services.OptionsService;
 import com.example.pierceParser.utils.Messages;
 import lombok.AllArgsConstructor;
