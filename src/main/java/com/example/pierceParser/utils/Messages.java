@@ -2,8 +2,6 @@ package com.example.pierceParser.utils;
 
 public class Messages {
 
-    public static final String PARSING_ERROR = "Couldn't parse CSV file.";
-
     public static final String GETTING_OPTIONS = "Getting all options...";
 
     public static final String GETTING_OPTION_BY_CODE = "Getting option by code ";
