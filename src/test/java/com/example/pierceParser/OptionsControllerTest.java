@@ -59,7 +59,7 @@ public class OptionsControllerTest {
     }
 
     @Test
-    public void getOptionByAttribute_success() throws Exception {
+    public void getOptionsByAttributeNameTest_success() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/options/byAttribute/helmetsize")
                         .header(HttpHeaders.ACCEPT_LANGUAGE, "pl_PL")
@@ -68,7 +68,7 @@ public class OptionsControllerTest {
     }
 
     @Test
-    public void getOptionByAttribute_notFound() throws Exception {
+    public void getOptionsByAttributeNameTest_notFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/options/byAttribute/attributeThatDoesNotExist")
                         .header(HttpHeaders.ACCEPT_LANGUAGE, "pl_PL")

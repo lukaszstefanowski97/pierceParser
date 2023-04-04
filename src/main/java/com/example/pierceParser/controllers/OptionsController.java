@@ -57,7 +57,7 @@ public class OptionsController {
     }
 
     @GetMapping("/byAttribute/{attributeName}")
-    public ResponseEntity<List<OptionDTO>> getOptionByAttributeName(
+    public ResponseEntity<List<OptionDTO>> getOptionsByAttributeName(
             @PathVariable String attributeName, @RequestHeader(HttpHeaders.ACCEPT_LANGUAGE) String language) {
 
         List<OptionDTO> result = optionsService.getOptions().stream()
