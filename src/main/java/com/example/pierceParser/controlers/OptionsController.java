@@ -27,15 +27,14 @@ public class OptionsController {
     public ResponseEntity<List<OptionDTO>> getAllOptions(
             @RequestHeader(HttpHeaders.ACCEPT_LANGUAGE) String language) {
 
-        List<Option> options = optionsService.getOptions();
-        List<OptionDTO> result = options.stream()
+        List<OptionDTO> result = optionsService.getOptions().stream()
                 .map(item -> new OptionDTO(
                         item.getCode(), item.getAttribute(), item.getSortOrder(), item.getLabels().get(language)))
                 .collect(Collectors.toList());
 
         log.info(Messages.GETTING_OPTIONS);
 
-        return options.isEmpty() ? new ResponseEntity<>(result, HttpStatus.NO_CONTENT) :
+        return optionsService.getOptions().isEmpty() ? new ResponseEntity<>(result, HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -61,12 +60,15 @@ public class OptionsController {
     public ResponseEntity<List<OptionDTO>> getOptionByAttributeName(
             @PathVariable String attributeName, @RequestHeader(HttpHeaders.ACCEPT_LANGUAGE) String language) {
 
-        List<Option> options = optionsService.getOptions().stream()
+        List<OptionDTO> result = optionsService.getOptions().stream()
                 .filter(item -> attributeName.equals(item.getAttribute()))
-                .collect(Collectors.toList());
-
-        List<OptionDTO> result = options.stream()
-                .map(item -> new OptionDTO(item.getCode(), item.getAttribute(), item.getSortOrder(), item.getLabels().get(language)))
+                .collect(Collectors.toList())
+                .stream()
+                .map(item -> new OptionDTO(
+                        item.getCode(),
+                        item.getAttribute(),
+                        item.getSortOrder(),
+                        item.getLabels().get(language)))
                 .collect(Collectors.toList());
 
         log.info(Messages.GETTING_OPTION_BY_ATTRIBUTE + attributeName);

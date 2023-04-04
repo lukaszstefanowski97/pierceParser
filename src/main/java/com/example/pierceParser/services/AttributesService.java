@@ -1,16 +1,33 @@
 package com.example.pierceParser.services;
 
 import com.example.pierceParser.entities.Attribute;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public interface AttributesService {
+@Service
+@NoArgsConstructor
+public class AttributesService {
 
-    List<Attribute> getAllAttributes();
+    private final List<Attribute> attributes = new LinkedList<>();
 
-    Attribute getAttributeByCode(String code);
+    public List<Attribute> getAllAttributes() {
+        return attributes;
+    }
 
-    void saveAttribute(Attribute attribute);
+    public Attribute getAttributeByCode(String code) {
+        return attributes.stream().filter(item -> code.equals(item.getCode())).findFirst().orElse(null);
+    }
 
-    void saveAttributes(List<Attribute> attributes);
+    public void saveAttribute(Attribute attribute) {
+        this.attributes.add(attribute);
+    }
+
+    public void saveAttributes(List<Attribute> attributes) {
+        if (attributes != null) {
+            this.attributes.addAll(attributes);
+        }
+    }
 }

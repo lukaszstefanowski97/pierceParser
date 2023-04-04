@@ -2,16 +2,29 @@ package com.example.pierceParser.helpers;
 
 import com.example.pierceParser.entities.Attribute;
 import com.example.pierceParser.entities.Option;
+import com.example.pierceParser.utils.Messages;
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+@Slf4j
+@Component
+@AllArgsConstructor
 public class CsvHelper {
 
-    public static List<Attribute> getAttributes() throws Exception {
+    private ApplicationContext applicationContext;
+
+    public List<Attribute> getAttributes() {
 
         try (Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/attributes.csv"))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
@@ -45,13 +58,17 @@ public class CsvHelper {
 
                     return attributes;
                 }
+            } catch (CsvException e) {
+                handleException(e);
             }
+        } catch (IOException e) {
+            handleException(e);
         }
 
         return null;
     }
 
-    public static List<Option> getOptions() throws Exception {
+    public List<Option> getOptions() {
 
         try (Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/options.csv"))) {
             try (CSVReader csvReader = new CSVReader(reader)) {
@@ -95,9 +112,19 @@ public class CsvHelper {
                     options.sort((Comparator.comparing(Option::getSortOrder)));
                     return options;
                 }
+            } catch (CsvException e) {
+                handleException(e);
             }
+        } catch (IOException e) {
+            handleException(e);
         }
 
         return null;
+    }
+
+    private void handleException(Exception e) {
+        e.printStackTrace();
+        log.error(Messages.PARSING_ERROR);
+        SpringApplication.exit(applicationContext, () -> 1);
     }
 }

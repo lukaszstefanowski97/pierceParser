@@ -27,14 +27,13 @@ public class AttributesController {
     public ResponseEntity<List<AttributeDTO>> getAllAttributes(
             @RequestHeader(HttpHeaders.ACCEPT_LANGUAGE) String language) {
 
-        List<Attribute> attributes = attributesService.getAllAttributes();
-        List<AttributeDTO> result = attributes.stream()
+        List<AttributeDTO> result = attributesService.getAllAttributes().stream()
                 .map(item -> new AttributeDTO(item.getCode(), item.getLabels().get(language)))
                 .collect(Collectors.toList());
 
         log.info(Messages.GETTING_ATTRIBUTES);
 
-        return attributes.isEmpty() ? new ResponseEntity<>(result, HttpStatus.NO_CONTENT) :
+        return attributesService.getAllAttributes().isEmpty() ? new ResponseEntity<>(result, HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(result, HttpStatus.OK);
     }
 
