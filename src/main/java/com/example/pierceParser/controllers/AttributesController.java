@@ -1,4 +1,4 @@
-package com.example.pierceParser.controlers;
+package com.example.pierceParser.controllers;
 
 import com.example.pierceParser.dto.AttributeDTO;
 import com.example.pierceParser.entities.Attribute;

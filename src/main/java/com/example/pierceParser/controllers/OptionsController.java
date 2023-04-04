@@ -1,4 +1,4 @@
-package com.example.pierceParser.controlers;
+package com.example.pierceParser.controllers;
 
 import com.example.pierceParser.dto.OptionDTO;
 import com.example.pierceParser.entities.Option;
@@ -62,7 +62,7 @@ public class OptionsController {
 
         List<OptionDTO> result = optionsService.getOptions().stream()
                 .filter(item -> attributeName.equals(item.getAttribute()))
-                .collect(Collectors.toList())
+                .toList()
                 .stream()
                 .map(item -> new OptionDTO(
                         item.getCode(),
