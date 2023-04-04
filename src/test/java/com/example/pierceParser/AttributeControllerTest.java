@@ -32,12 +32,20 @@ public class AttributeControllerTest {
     }
 
     @Test
-    public void getAllAttributesTest() throws Exception {
+    public void getAllAttributesTest_success() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/attributes")
                         .header(HttpHeaders.ACCEPT_LANGUAGE, "pl_PL")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getAllAttributesTest_noHeader() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/attributes")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 
     @Test

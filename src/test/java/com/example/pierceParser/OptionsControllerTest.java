@@ -41,6 +41,14 @@ public class OptionsControllerTest {
     }
 
     @Test
+    public void getAllOptionsTest_noHeader() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/options")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void getOptionByCodeTest_success() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/options/9_10")
