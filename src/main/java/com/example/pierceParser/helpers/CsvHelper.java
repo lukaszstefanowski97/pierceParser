@@ -2,7 +2,6 @@ package com.example.pierceParser.helpers;
 
 import com.example.pierceParser.entities.Attribute;
 import com.example.pierceParser.entities.Option;
-import com.example.pierceParser.utils.Messages;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
@@ -59,12 +58,13 @@ public class CsvHelper {
                     return attributes;
                 }
             } catch (CsvException e) {
-                handleException(e);
+                e.printStackTrace();
             }
         } catch (IOException e) {
-            handleException(e);
+            e.printStackTrace();
         }
 
+        SpringApplication.exit(applicationContext, () -> 1);
         return null;
     }
 
@@ -113,18 +113,13 @@ public class CsvHelper {
                     return options;
                 }
             } catch (CsvException e) {
-                handleException(e);
+                e.printStackTrace();
             }
         } catch (IOException e) {
-            handleException(e);
+            e.printStackTrace();
         }
 
-        return null;
-    }
-
-    private void handleException(Exception e) {
-        e.printStackTrace();
-        log.error(Messages.PARSING_ERROR);
         SpringApplication.exit(applicationContext, () -> 1);
+        return null;
     }
 }
