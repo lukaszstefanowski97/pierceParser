@@ -23,7 +23,7 @@ public class OptionsControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-    @Autowired
+
     private MockMvc mockMvc;
 
     @Before
